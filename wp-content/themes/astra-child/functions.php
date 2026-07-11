@@ -106,6 +106,37 @@ add_filter('astra_get_content_layout', function($layout) {
   return $layout;
 }, 99);
 
+// Our custom templates render fully custom inline-styled HTML and never call
+// the_content(), so Elementor has nothing to attach its editor to. Opening
+// "Edit with Elementor" on one of these pages crashes with "content area was
+// not found". Remove that entry point everywhere it can appear (admin bar,
+// post row actions, post editor "Back to WordPress Editor" area) so it can't
+// be triggered by accident.
+add_action('admin_bar_menu', function($wp_admin_bar) {
+  if (is_admin()) return;
+  $template = get_page_template_slug();
+  $custom = ['page-esco.php','page-about.php','page-technologies.php','page-service.php','page-contact.php','page-tech-detail.php','page-home-premium.php'];
+  if (in_array($template, $custom)) {
+    $wp_admin_bar->remove_node('elementor_edit_page');
+  }
+}, 999);
+
+add_filter('elementor/utils/is_post_support_es', function($support, $post_id) {
+  $template = get_page_template_slug($post_id);
+  $custom = ['page-esco.php','page-about.php','page-technologies.php','page-service.php','page-contact.php','page-tech-detail.php','page-home-premium.php'];
+  if (in_array($template, $custom)) return false;
+  return $support;
+}, 10, 2);
+
+add_filter('page_row_actions', function($actions, $post) {
+  $template = get_page_template_slug($post->ID);
+  $custom = ['page-esco.php','page-about.php','page-technologies.php','page-service.php','page-contact.php','page-tech-detail.php','page-home-premium.php'];
+  if (in_array($template, $custom)) {
+    unset($actions['edit_with_elementor']);
+  }
+  return $actions;
+}, 10, 2);
+
 // Navbar CSS/JS (design tokens, desktop menu, premium mobile drawer, Buttonizer
 // restyle) all live in wp-content/uploads/nav-system.php, loaded via the
 // mu-plugin at wp-content/mu-plugins/mobile-nav-fix.php. The old hardcoded
