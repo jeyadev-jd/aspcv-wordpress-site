@@ -1,5 +1,7 @@
 # Aspiration Cleantech Ventures — WordPress Site
 
+> 🔗 **[Project page, demo and write-up on jeyadev.dev](https://jeyadev.dev/projects/aspcv-wordpress-site)**: Custom Astra child theme and mu-plugins for a cleantech company site, by [Jeyadev R](https://jeyadev.dev), AI engineer in Chennai.
+
 Source-controlled snapshot of the custom theme and site-level code for **[aspcv.com](https://aspcv.com)** — the corporate site for Aspiration Cleantech Ventures (ASPCV), an industrial cleantech company specializing in high-temperature heat pumps, solar thermal systems, waste heat recovery, and ESCO (Energy Service Company) financing models.
 
 This repo tracks the **custom code only** — the Astra child theme, custom page templates, and must-use plugins that implement ASPCV's brand, navigation, and page layouts on top of the Astra parent theme. It does not include WordPress core, the Astra parent theme, or third-party plugins (Elementor, LiteSpeed Cache, WPForms, etc.), which are managed through the WordPress admin / hosting panel.
